@@ -1,0 +1,33 @@
+version: '3.8'
+name: headlineai
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/code  # Sync local development directory with the container
+    depends_on:
+        - postgres_db
+    ports:
+      - "8000:8000"  # Expose container port 8000 to host port 8000  
+  
+  postgres_db:
+    image: postgres:latest  # Use the official PostgreSQL 
+    restart: always
+    container_name: UserDB
+    environment:
+      POSTGRES_USER: zain
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: userdb
+    ports:
+        - '5432:5432'
+    volumes:
+        - postgres_db:/var/lib/postgresql/data
+  
+volumes:
+  postgres_db:
+    driver: local
+networks:
+  default:
+    driver: bridge
