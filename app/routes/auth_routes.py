@@ -1,15 +1,13 @@
+from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordRequestForm
 from sqlmodel import Session
-from app.schemas import UserCreate, UserResponse, Token, UserLogin
+from app.schemas import UserCreate, UserResponse, Token
 from app.models import User
 from app.auth import get_password_hash, verify_password, create_access_token, get_current_user
 from app.db import get_session
 from sqlmodel import select
-
 router = APIRouter()
-
-# Dependency to get a session
-
 
 # Signup Endpoint
 @router.post("/signup", response_model=UserResponse)
@@ -28,10 +26,11 @@ def signup(user_create: UserCreate, session: Session = Depends(get_session)):
     return new_user
 
 # Login Endpoint
+#NOTE: You have to tell the frontend developer that he has to send the email in the key of username and should ask from the user the email but put it against the username key in the header.
 @router.post("/login", response_model=Token)
-def login(user: UserLogin, session: Session = Depends(get_session)):
-    db_user = session.exec(select(User).where(User.email == user.email)).first()
-    if not db_user or not verify_password(user.password, db_user.hashed_password):
+def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends(OAuth2PasswordRequestForm)], session: Session = Depends(get_session)):
+    db_user = session.exec(select(User).where(User.email == form_data.username)).first()
+    if not db_user or not verify_password(form_data.password, db_user.hashed_password):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid credentials")
     
     # Create JWT token

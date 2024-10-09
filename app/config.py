@@ -1,12 +1,13 @@
-from pydantic_settings import BaseSettings
+from starlette.config import Config
 
-class Settings(BaseSettings):
-    DATABASE_URL: str
-    JWT_SECRET_KEY: str
-    ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+# Attempt to load .env file
+try:
+    config = Config(".env")
+except FileNotFoundError:
+    config = Config()
 
-    class Config:
-        env_file = ".env"
-
-settings = Settings()
+# Retrieve configuration values from the environment or .env file
+DATABASE_URL = config("DATABASE_URL", cast=str)
+JWT_SECRET_KEY = config("JWT_SECRET_KEY", cast=str)
+ALGORITHM = config("ALGORITHM", cast=str, default="HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES = config("ACCESS_TOKEN_EXPIRE_MINUTES", cast=int, default=30)

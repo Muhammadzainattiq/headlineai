@@ -13,4 +13,4 @@ def on_startup():
 
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to the API"}
+    return {"message": "Welcome to the Headline AI Backend!"}
