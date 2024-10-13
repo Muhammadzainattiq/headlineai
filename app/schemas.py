@@ -21,3 +21,10 @@ class UserResponse(SQLModel):
 class Token(SQLModel):
     access_token: str
     token_type: str
+
+
+class AIRequest(SQLModel):
+    query: str
+
+class AIResponse(SQLModel):
+    messages: list
