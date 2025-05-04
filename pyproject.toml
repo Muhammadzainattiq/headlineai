@@ -1,33 +1,27 @@
-[tool.poetry]
-name = "app"
+[project]
+name = "headlineai"
 version = "0.1.0"
-description = ""
-authors = ["Muhammad Zain Attiq <zainatteeq@gmail.com>"]
+description = "Add your description here"
 readme = "README.md"
-
-[tool.poetry.dependencies]
-python = "^3.11"
-fastapi = "^0.115.0"
-uvicorn = {extras = ["standard"], version = "^0.30.6"}
-sqlmodel = "^0.0.22"
-pytest = "^8.3.3"
-python-jose = "^3.3.0"
-pydantic = {extras = ["email"], version = "^2.9.2"}
-passlib = "^1.7.4"
-pydantic-settings = "^2.5.2"
-psycopg2 = "^2.9.9"
-bcrypt = "^4.2.0"
-python-multipart = "^0.0.12"
-httpx = "^0.27.2"
-langgraph = "^0.2.35"
-langchain-community = "^0.3.2"
-langchain-core = "^0.3.10"
-langchain-openai = "^0.2.2"
-langchain-google-genai = "^2.0.1"
-ipython = "^8.28.0"
-bs4 = "^0.0.2"
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.30.6",
+    "sqlmodel>=0.0.22",
+    "pytest>=8.3.3",
+    "python-jose>=3.3.0",
+    "pydantic[email]>=2.9.2",
+    "passlib>=1.7.4",
+    "pydantic-settings>=2.5.2",
+    "psycopg2>=2.9.9",
+    "bcrypt>=4.2.0",
+    "python-multipart>=0.0.12",
+    "httpx>=0.27.2",
+    "langgraph>=0.2.35",
+    "langchain-community>=0.3.2",
+    "langchain-core>=0.3.10",
+    "langchain-openai>=0.2.2",
+    "langchain-google-genai>=2.0.1",
+    "ipython>=8.28.0",
+    "bs4>=0.0.2"
+]
